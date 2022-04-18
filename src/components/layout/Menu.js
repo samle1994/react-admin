@@ -1,3 +1,5 @@
+import { Link, NavLink } from "react-router-dom";
+const logo = require("./../../AdminLTELogo.png");
 const Menu = () => {
   return (
     <>
@@ -5,7 +7,7 @@ const Menu = () => {
         {/* Brand Logo */}
         <a href="/" className="brand-link">
           <img
-            src="./dist/img/AdminLTELogo.png"
+            src={logo}
             alt="AdminLTE Logo"
             className="brand-image img-circle elevation-3"
             style={{ opacity: ".8" }}
@@ -38,24 +40,25 @@ const Menu = () => {
                     <i className="fas fa-angle-left right"></i>
                   </p>
                 </a>
+
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="/productlist" className="nav-link">
+                    <NavLink className="nav-link" to="/productlist">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
                       <p>Danh mục cấp 1</p>
-                    </a>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <a href="../mailbox/compose.html" className="nav-link">
+                    <NavLink className="nav-link" to="/productcat">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
                       <p>Danh mục cấp 2</p>
-                    </a>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <a href="../mailbox/read-mail.html" className="nav-link">
+                    <NavLink className="nav-link" to="/product">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
-                      <p>Sản phẩm</p>
-                    </a>
+                      <p>Danh mục cấp 2</p>
+                    </NavLink>
                   </li>
                 </ul>
               </li>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProductList = () => {
   const [data, setdata] = useState([]);
@@ -10,6 +11,7 @@ const ProductList = () => {
     setdata(newData);
     console.log(data);
   };
+  const navigate = useNavigate();
 
   return (
     <>
@@ -74,7 +76,12 @@ const ProductList = () => {
                 <button type="submit" className="btn btn-primary">
                   Lưu lại
                 </button>
-                <button className="btn btn-danger ml-2">Quay lại</button>
+                <button
+                  className="btn btn-danger ml-2"
+                  onClick={navigate("/productlist")}
+                >
+                  Quay lại
+                </button>
               </div>
             </form>
           </div>

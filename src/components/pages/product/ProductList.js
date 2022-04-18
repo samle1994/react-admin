@@ -1,4 +1,10 @@
+import { useNavigate } from "react-router-dom";
 const Product = () => {
+  const navigate = useNavigate();
+  const handleAdd = (e) => {
+    e.preventDefault();
+    navigate("/productlist/0");
+  };
   return (
     <>
       {/* Content Wrapper. Contains page content */}
@@ -31,7 +37,8 @@ const Product = () => {
           <div className="card-footer text-sm sticky-top">
             <a
               className="btn btn-sm bg-gradient-primary text-white"
-              href="/productlist/0"
+              href="/#"
+              onClick={handleAdd}
               title="Thêm mới"
             >
               <i className="fas fa-plus mr-2" />
