@@ -12,7 +12,9 @@ const ProductList = () => {
     console.log(data);
   };
   const navigate = useNavigate();
-
+  const handleBack = () => {
+    navigate("/product");
+  };
   return (
     <>
       {/* Content Wrapper. Contains page content */}
@@ -77,8 +79,9 @@ const ProductList = () => {
                   Lưu lại
                 </button>
                 <button
+                  type="button"
                   className="btn btn-danger ml-2"
-                  onClick={navigate("/productlist")}
+                  onClick={handleBack}
                 >
                   Quay lại
                 </button>
