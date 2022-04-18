@@ -35,7 +35,7 @@ const Home = () => {
                   <div className="card-header border-0">
                     <div className="d-flex justify-content-between">
                       <h3 className="card-title">Online Store Visitors</h3>
-                      <a href="javascript:void(0);">View Report</a>
+                      <a href="/#">View Report</a>
                     </div>
                   </div>
                   <div className="card-body">

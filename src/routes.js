@@ -2,6 +2,8 @@ import Home from "./components/pages/Home";
 import NotFound from "./components/pages/NotFound";
 import Nointernet from "./components/pages/Nointernet";
 import Nopermission from "./components/pages/Nopermission";
+import ProductList from "./components/pages/product/ProductList";
+import ProductListEdit from "./components/pages/product/ProductListEdit";
 const routes = [
   {
     path: "",
@@ -10,6 +12,14 @@ const routes = [
   {
     path: "home",
     component: <Home />,
+  },
+  {
+    path: "productlist",
+    component: <ProductList />,
+  },
+  {
+    path: "productlist/:id",
+    component: <ProductListEdit />,
   },
   {
     path: "no-internet",

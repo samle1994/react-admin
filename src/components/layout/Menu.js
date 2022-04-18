@@ -5,7 +5,7 @@ const Menu = () => {
         {/* Brand Logo */}
         <a href="/" className="brand-link">
           <img
-            src="dist/img/AdminLTELogo.png"
+            src="./dist/img/AdminLTELogo.png"
             alt="AdminLTE Logo"
             className="brand-image img-circle elevation-3"
             style={{ opacity: ".8" }}
@@ -40,7 +40,7 @@ const Menu = () => {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="../mailbox/mailbox.html" className="nav-link">
+                    <a href="/productlist" className="nav-link">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
                       <p>Danh mục cấp 1</p>
                     </a>
