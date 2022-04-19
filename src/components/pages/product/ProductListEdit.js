@@ -13,7 +13,7 @@ const ProductList = () => {
   };
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate("/product");
+    navigate("/productlist");
   };
   return (
     <>
