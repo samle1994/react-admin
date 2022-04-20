@@ -1,5 +1,5 @@
 // imrse
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import userService from "../services/userService";
 import { useNavigate } from "react-router-dom";
 
@@ -31,13 +31,21 @@ const Login = () => {
         handleLoginAction(result.data.token, result.data.data);
 
         if (remember) {
-          localStorage.setItem("remember", true);
-          localStorage.setItem("username", username);
-          localStorage.setItem("password", password);
+          const newDatainfo = {};
+          newDatainfo["username"] = username;
+          newDatainfo["password"] = password;
+          newDatainfo["remember"] = true;
+
+          let CryptoJS = require("crypto-js");
+
+          let newDatainfo_crypo = CryptoJS.AES.encrypt(
+            JSON.stringify(newDatainfo),
+            "&^%#(_*("
+          ).toString();
+
+          localStorage.setItem("Datainfo", JSON.stringify(newDatainfo_crypo));
         } else {
-          localStorage.removeItem("remember");
-          localStorage.removeItem("username");
-          localStorage.removeItem("password");
+          localStorage.removeItem("Datainfo");
         }
         navigate("/");
       } else {
@@ -45,9 +53,14 @@ const Login = () => {
       }
     });
   };
-  const remember_r = localStorage.getItem("remember");
-  const username_r = localStorage.getItem("username");
-  const password_r = localStorage.getItem("password");
+
+  let CryptoJS = require("crypto-js");
+  const Datainfo_de = CryptoJS.AES.decrypt(
+    JSON.parse(localStorage.getItem("Datainfo")),
+    "&^%#(_*("
+  );
+  let Datainfo_r = JSON.parse(Datainfo_de.toString(CryptoJS.enc.Utf8));
+
   return (
     <>
       <div className="login-page">
@@ -69,7 +82,11 @@ const Login = () => {
                     type="text"
                     className="form-control"
                     placeholder="Tài khoản"
-                    defaultValue={remember_r ? username_r : ""}
+                    defaultValue={
+                      Datainfo_r != null && Datainfo_r.username
+                        ? Datainfo_r.username
+                        : ""
+                    }
                   />
                   <div className="input-group-append">
                     <div className="input-group-text">
@@ -81,7 +98,11 @@ const Login = () => {
                   <input
                     type="password"
                     id="password"
-                    defaultValue={remember_r ? password_r : ""}
+                    defaultValue={
+                      Datainfo_r != null && Datainfo_r.password
+                        ? Datainfo_r.password
+                        : ""
+                    }
                     className="form-control"
                     placeholder="Mật khẩu"
                   />
@@ -95,7 +116,11 @@ const Login = () => {
                   <div className="col-7">
                     <div className="icheck-primary">
                       <input
-                        defaultChecked={remember_r ? true : false}
+                        defaultChecked={
+                          Datainfo_r != null && Datainfo_r.remember
+                            ? true
+                            : false
+                        }
                         type="checkbox"
                         id="remember"
                       />

@@ -1,10 +1,27 @@
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ProductListService from "./../../../services/ProductListService";
 const Product = () => {
   const navigate = useNavigate();
-  const handleAdd = (e) => {
+  const handleAdd = (e, id) => {
     e.preventDefault();
-    navigate("/productlist/0");
+    navigate("/productlist/" + id);
   };
+
+  const [productlist, setproductlist] = useState([]);
+
+  const loadData = () => {
+    ProductListService.list().then((res) => {
+      setproductlist(res.data);
+    });
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  console.log(productlist);
+
   return (
     <>
       {/* Content Wrapper. Contains page content */}
@@ -88,42 +105,53 @@ const Product = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr data-widget="expandable-table" aria-expanded="false">
-                        <td className="align-middle text-center">1</td>
-                        <td className="align-middle ">Lê Sâm</td>
-                        <td className="align-middle text-center">
-                          <div className="custom-control custom-checkbox my-checkbox">
-                            <input
-                              type="checkbox"
-                              className="custom-control-input show-checkbox"
-                              id="show-checkbox-1"
-                            />
-                            <label
-                              htmlFor="show-checkbox-1"
-                              className="custom-control-label"
-                            />
-                          </div>
-                        </td>
-                        <td className="align-middle text-center">
-                          <div>
-                            <a
-                              className="text-primary mr-2"
-                              href="/#"
-                              title="Chỉnh sửa"
-                            >
-                              <i className="fas fa-edit" />
-                            </a>
-                            <a
-                              className="text-danger"
-                              id="delete-item"
-                              href="/#"
-                              title="Xóa"
-                            >
-                              <i className="fas fa-trash-alt" />
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
+                      {productlist.map((productlist, idx) => (
+                        <tr
+                          data-widget="expandable-table"
+                          aria-expanded="false"
+                        >
+                          <td className="align-middle text-center">
+                            {idx + 1}
+                          </td>
+                          <td className="align-middle ">{productlist.name}</td>
+                          <td className="align-middle text-center">
+                            <div className="custom-control custom-checkbox my-checkbox">
+                              <input
+                                type="checkbox"
+                                className="custom-control-input show-checkbox"
+                                id={`show-checkbox-${productlist.id}`}
+                                defaultChecked={
+                                  productlist.is_status == 1 ? true : false
+                                }
+                              />
+                              <label
+                                htmlFor={`show-checkbox-${productlist.id}`}
+                                className="custom-control-label"
+                              />
+                            </div>
+                          </td>
+                          <td className="align-middle text-center">
+                            <div>
+                              <a
+                                className="text-primary mr-2"
+                                href="/#"
+                                onClick={(e) => handleAdd(e, productlist.id)}
+                                title="Chỉnh sửa"
+                              >
+                                <i className="fas fa-edit" />
+                              </a>
+                              <a
+                                className="text-danger"
+                                id="delete-item"
+                                href="/#"
+                                title="Xóa"
+                              >
+                                <i className="fas fa-trash-alt" />
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>

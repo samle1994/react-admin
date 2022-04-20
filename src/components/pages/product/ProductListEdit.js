@@ -1,20 +1,68 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import ProductListService from "./../../../services/ProductListService";
+import Input from "./../../Input";
 
 const ProductList = () => {
-  const [data, setdata] = useState([]);
-  const handleSubmit = (e) => {};
-
-  const handleChange = (e) => {
-    const newData = { ...data };
-    newData[e.target.name] = e.target.value;
-    setdata(newData);
-    console.log(data);
-  };
   const navigate = useNavigate();
   const handleBack = () => {
     navigate("/productlist");
   };
+  const params = useParams();
+  const [type, settype] = useState(0);
+  const [productlist, setproductlist] = useState({ id: 0, name: "" });
+
+  useEffect(() => {
+    settype(params.id);
+    if (params.id > 0) {
+      ProductListService.get(params.id).then((res) => {
+        setproductlist(res.data);
+      });
+    }
+  }, [params.id]);
+
+  const formik = useFormik({
+    initialValues: {
+      id: 0,
+      name: "",
+    },
+    validationSchema: Yup.object({
+      id: Yup.number().required(),
+      name: Yup.string().required("Bắt buộc nhập"),
+    }),
+    onSubmit: (values) => {
+      console.log(values);
+      handleFormSubmit(values);
+    },
+  });
+
+  const handleFormSubmit = (data) => {
+    //console.log(data);
+    if (data.id === 0) {
+      ProductListService.add(data).then((res) => {
+        console.log(res);
+        if (res.errorCode === 0) {
+          toast.success("Thêm mới thành công");
+          navigate("/productlist");
+        } else {
+          toast.warning(res.message);
+        }
+      });
+    } else {
+      ProductListService.update(data.id, data).then((res) => {
+        if (res.errorCode === 0) {
+          toast.success("Cập nhật thành công");
+          navigate("/productlist");
+        } else {
+          toast.warning(res.message);
+        }
+      });
+    }
+  };
+
   return (
     <>
       {/* Content Wrapper. Contains page content */}
@@ -46,32 +94,25 @@ const ProductList = () => {
         <div className="content">
           <div className="card card-primary">
             <div className="card-header">
-              <h3 className="card-title">Thêm sản phẩm</h3>
+              <h3 className="card-title">
+                {type == 0 ? "Thêm" : "Sửa"} sản phẩm
+              </h3>
             </div>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
               <div className="card-body">
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Tiêu đề</label>
-                  <input
-                    type="text"
-                    className="form-control"
+                  <Input
                     id="name"
-                    name="name"
-                    onChange={handleChange}
-                    placeholder="Nhập tiêu đề"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="exampleInputEmail1">Tiêu đề 1</label>
-                  <input
                     type="text"
-                    className="form-control"
-                    id="name1"
-                    name="name1"
-                    onChange={handleChange}
-                    placeholder="Nhập tiêu đề"
-                  />
+                    placeholder="Nhập tên danh mục"
+                    autoComplete="off"
+                    defaultValue={productlist.name}
+                    frmField={formik.getFieldProps("name")}
+                    err={formik.touched.name && formik.errors.name}
+                    errMessage={formik.errors.name}
+                  ></Input>
                 </div>
               </div>
               <div className="card-footer">

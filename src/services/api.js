@@ -4,6 +4,7 @@ import store from "./../store/store";
 const url = {
   baseUrl: "http://127.0.0.1:8000/api",
   login: "/login",
+  productlist: "/productlist",
 };
 const instance = axios.create({
   baseURL: url.baseUrl,
@@ -15,7 +16,7 @@ const instance = axios.create({
 instance.interceptors.request.use((request) => {
   const state = store.getState();
   if (state.auth.token) {
-    request.headers.Authorization = state.auth.token;
+    request.headers.token = state.auth.token;
   }
   return request;
 });
