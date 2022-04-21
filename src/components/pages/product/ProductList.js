@@ -107,6 +107,7 @@ const Product = () => {
                     <tbody>
                       {productlist.map((productlist, idx) => (
                         <tr
+                          key={productlist.id}
                           data-widget="expandable-table"
                           aria-expanded="false"
                         >

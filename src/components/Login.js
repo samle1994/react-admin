@@ -53,13 +53,16 @@ const Login = () => {
       }
     });
   };
-
-  let CryptoJS = require("crypto-js");
-  const Datainfo_de = CryptoJS.AES.decrypt(
-    JSON.parse(localStorage.getItem("Datainfo")),
-    "&^%#(_*("
-  );
-  let Datainfo_r = JSON.parse(Datainfo_de.toString(CryptoJS.enc.Utf8));
+  let Datainfo_r = {};
+  const data_local = localStorage.getItem("Datainfo");
+  if (data_local != null) {
+    let CryptoJS = require("crypto-js");
+    const Datainfo_de = CryptoJS.AES.decrypt(
+      JSON.parse(data_local),
+      "&^%#(_*("
+    );
+    Datainfo_r = JSON.parse(Datainfo_de.toString(CryptoJS.enc.Utf8));
+  }
 
   return (
     <>
