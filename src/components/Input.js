@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 const Input = (props) => {
-  const { id, type, defaultValue, frmField, err, errMessage, ...others } =
-    props;
+  const { id, frmField, err, errMessage, ...others } = props;
   const classInput = `form-control ${err ? "is-invalid" : ""}`;
   return (
     <>
@@ -10,7 +9,6 @@ const Input = (props) => {
         <textarea
           className={classInput}
           id={id}
-          defaultValue={defaultValue}
           {...others}
           {...frmField}
         ></textarea>
@@ -18,7 +16,6 @@ const Input = (props) => {
         <input
           className={classInput}
           autoComplete="off"
-          defaultValue={defaultValue}
           id={id}
           {...others}
           {...frmField}

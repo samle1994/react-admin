@@ -12,14 +12,11 @@ const ProductList = () => {
     navigate("/productlist");
   };
   const params = useParams();
-  const [type, settype] = useState(0);
-  const [productlist, setproductlist] = useState({ id: 0, name: "" });
 
   useEffect(() => {
-    settype(params.id);
     if (params.id > 0) {
       ProductListService.get(params.id).then((res) => {
-        setproductlist(res.data);
+        formik.setValues(res.data);
       });
     }
   }, [params.id]);
@@ -34,33 +31,19 @@ const ProductList = () => {
       name: Yup.string().required("Bắt buộc nhập"),
     }),
     onSubmit: (values) => {
-      console.log(values);
       handleFormSubmit(values);
     },
   });
 
   const handleFormSubmit = (data) => {
-    //console.log(data);
-    if (data.id === 0) {
-      ProductListService.add(data).then((res) => {
-        console.log(res);
-        if (res.errorCode === 0) {
-          toast.success("Thêm mới thành công");
-          navigate("/productlist");
-        } else {
-          toast.warning(res.message);
-        }
-      });
-    } else {
-      ProductListService.update(data.id, data).then((res) => {
-        if (res.errorCode === 0) {
-          toast.success("Cập nhật thành công");
-          navigate("/productlist");
-        } else {
-          toast.warning(res.message);
-        }
-      });
-    }
+    ProductListService.update(data.id, data).then((res) => {
+      if (res.errorCode === 0) {
+        toast.success("Cập nhật thành công");
+        navigate("/productlist");
+      } else {
+        toast.warning(res.message);
+      }
+    });
   };
 
   return (
@@ -95,7 +78,7 @@ const ProductList = () => {
           <div className="card card-primary">
             <div className="card-header">
               <h3 className="card-title">
-                {type == 0 ? "Thêm" : "Sửa"} sản phẩm
+                {formik.id == 0 ? "Thêm" : "Sửa"} sản phẩm
               </h3>
             </div>
 
@@ -108,7 +91,6 @@ const ProductList = () => {
                     type="text"
                     placeholder="Nhập tên danh mục"
                     autoComplete="off"
-                    defaultValue={productlist.name}
                     frmField={formik.getFieldProps("name")}
                     err={formik.touched.name && formik.errors.name}
                     errMessage={formik.errors.name}

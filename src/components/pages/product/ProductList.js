@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import { toast } from "react-toastify";
 import ProductListService from "./../../../services/ProductListService";
+import { Formik } from "formik";
+import { Pagination } from "react-bootstrap";
 const Product = () => {
   const navigate = useNavigate();
   const handleAdd = (e, id) => {
@@ -10,17 +14,75 @@ const Product = () => {
 
   const [productlist, setproductlist] = useState([]);
 
+  const [page, setpage] = useState(0);
+  const [pageLength, setpageLength] = useState(5);
+  const [pagingItems, setpagingItems] = useState([]);
+
   const loadData = () => {
-    ProductListService.list().then((res) => {
-      setproductlist(res.data);
+    ProductListService.getPaging(page, pageLength).then((res) => {
+      console.log(res);
+      setproductlist(res.data.data.data);
+      let items = [
+        <Pagination.Item key="first" onClick={() => setpage(0)}>
+          &laquo;
+        </Pagination.Item>,
+      ];
+      for (let i = 0; i < res.data.data.last_page; i++) {
+        items.push(
+          <Pagination.Item
+            key={i}
+            active={i === page}
+            onClick={() => setpage(i)}
+          >
+            {i + 1}
+          </Pagination.Item>
+        );
+      }
+      items.push(
+        <Pagination.Item
+          key="last"
+          onClick={() => setpage(res.data.data.last_page - 1)}
+        >
+          &raquo;
+        </Pagination.Item>
+      );
+      setpagingItems(items);
     });
   };
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [page, pageLength]);
 
-  console.log(productlist);
+  const handleDelete = (id) => {
+    if (id) {
+      ProductListService.remove(id).then((res) => {
+        if (res.errorCode === 0) {
+          toast.success("Xoá dữ liệu thành công");
+          loadData();
+        } else {
+          toast.warning(res.message);
+        }
+      });
+    }
+  };
+
+  const confirm = (e, id) => {
+    e.preventDefault();
+    confirmAlert({
+      title: "Xác nhận xoá",
+      message: "Bạn có chắc chắn muốn xoá",
+      buttons: [
+        {
+          label: "Đồng ý",
+          onClick: () => handleDelete(id),
+        },
+        {
+          label: "Quay lại",
+        },
+      ],
+    });
+  };
 
   return (
     <>
@@ -114,7 +176,14 @@ const Product = () => {
                           <td className="align-middle text-center">
                             {idx + 1}
                           </td>
-                          <td className="align-middle ">{productlist.name}</td>
+                          <td className="align-middle ">
+                            <p
+                              className="mb-0"
+                              onClick={(e) => handleAdd(e, productlist.id)}
+                            >
+                              {productlist.name}
+                            </p>
+                          </td>
                           <td className="align-middle text-center">
                             <div className="custom-control custom-checkbox my-checkbox">
                               <input
@@ -145,6 +214,7 @@ const Product = () => {
                                 className="text-danger"
                                 id="delete-item"
                                 href="/#"
+                                onClick={(e) => confirm(e, productlist.id)}
                                 title="Xóa"
                               >
                                 <i className="fas fa-trash-alt" />
@@ -155,6 +225,9 @@ const Product = () => {
                       ))}
                     </tbody>
                   </table>
+                  <Pagination className="mt-3 mb-0 justify-content-end">
+                    {pagingItems}
+                  </Pagination>
                 </div>
               </div>
             </div>

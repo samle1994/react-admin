@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
