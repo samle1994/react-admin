@@ -2,29 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
-import ProductListService from "./../../../services/ProductListService";
+import ProductCatService from "./../../../services/ProductCatService";
 import { Formik } from "formik";
 import { Pagination } from "react-bootstrap";
-const Product = () => {
+const ProductCat = () => {
   const navigate = useNavigate();
   const handleAdd = (e, id = 0) => {
     e.preventDefault();
-    navigate("/productlist/" + id);
+    navigate("/productcat/" + id);
   };
 
-  const [productlist, setproductlist] = useState([]);
+  const [productcat, setproductcat] = useState([]);
 
   const [page, setpage] = useState(0);
   const [pageLength, setpageLength] = useState(10);
   const [pagingItems, setpagingItems] = useState([]);
   const [search, setsearch] = useState("");
   const loadData = () => {
-    ProductListService.getPaging(page, pageLength, search).then((res) => {
+    ProductCatService.getPaging(page, pageLength, search).then((res) => {
       //console.log(res.data);
       if (res.data.data == "" && res.data.PageInfo.total > 0) {
         setpage(res.data.PageInfo.total - 1);
       }
-      setproductlist(res.data.data);
+      setproductcat(res.data.data);
       let items = [
         <Pagination.Item key="first" onClick={() => setpage(0)}>
           &laquo;
@@ -59,7 +59,7 @@ const Product = () => {
 
   const handleDelete = (id) => {
     if (id) {
-      ProductListService.remove(id).then((res) => {
+      ProductCatService.remove(id).then((res) => {
         if (res.errorCode === 0) {
           toast.success("Xoá dữ liệu thành công");
           loadData();
@@ -94,7 +94,7 @@ const Product = () => {
   const handleChangeStatus = (e, id) => {
     let value = e.target.checked === false ? 0 : 1;
     let type = e.target.name;
-    ProductListService.update(id, {}, value, type).then((res) => {
+    ProductCatService.update(id, {}, value, type).then((res) => {
       console.log(res);
       if (res.errorCode === 0) {
       } else {
@@ -111,7 +111,7 @@ const Product = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Quản lý sản phẩm cấp 1</h1>
+                <h1 className="m-0">Quản lý sản phẩm cấp 2</h1>
               </div>
               {/* /.col */}
               <div className="col-sm-6">
@@ -175,6 +175,9 @@ const Product = () => {
                         <th width="5%" className="align-middle text-center">
                           STT
                         </th>
+                        <th width="20%" className="align-middle text-center">
+                          Danh mục cấp 1
+                        </th>
                         <th width="40%" className="align-middle text-center">
                           Tiêu đề
                         </th>
@@ -187,21 +190,22 @@ const Product = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {productlist.map((productlist, idx) => (
+                      {productcat.map((productcat, idx) => (
                         <tr
-                          key={productlist.id}
+                          key={productcat.id}
                           data-widget="expandable-table"
                           aria-expanded="false"
                         >
                           <td className="align-middle text-center">
                             {idx + 1}
                           </td>
+                          <td></td>
                           <td className="align-middle ">
                             <p
                               className="mb-0"
-                              onClick={(e) => handleAdd(e, productlist.id)}
+                              onClick={(e) => handleAdd(e, productcat.id)}
                             >
-                              {productlist.name}
+                              {productcat.name}
                             </p>
                           </td>
                           <td className="align-middle text-center">
@@ -209,17 +213,17 @@ const Product = () => {
                               <input
                                 type="checkbox"
                                 className="custom-control-input show-checkbox"
-                                id={`show-checkbox-${productlist.id}`}
+                                id={`show-checkbox-${productcat.id}`}
                                 defaultChecked={
-                                  productlist.is_status == 1 ? true : false
+                                  productcat.is_status == 1 ? true : false
                                 }
                                 onClick={(e) =>
-                                  handleChangeStatus(e, productlist.id)
+                                  handleChangeStatus(e, productcat.id)
                                 }
                                 name="is_status"
                               />
                               <label
-                                htmlFor={`show-checkbox-${productlist.id}`}
+                                htmlFor={`show-checkbox-${productcat.id}`}
                                 className="custom-control-label"
                               />
                             </div>
@@ -229,7 +233,7 @@ const Product = () => {
                               <a
                                 className="text-primary mr-2"
                                 href="/#"
-                                onClick={(e) => handleAdd(e, productlist.id)}
+                                onClick={(e) => handleAdd(e, productcat.id)}
                                 title="Chỉnh sửa"
                               >
                                 <i className="fas fa-edit" />
@@ -238,7 +242,7 @@ const Product = () => {
                                 className="text-danger"
                                 id="delete-item"
                                 href="/#"
-                                onClick={(e) => confirm(e, productlist.id)}
+                                onClick={(e) => confirm(e, productcat.id)}
                                 title="Xóa"
                               >
                                 <i className="fas fa-trash-alt" />
@@ -264,4 +268,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default ProductCat;

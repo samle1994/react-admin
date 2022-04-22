@@ -33,7 +33,7 @@ const Menu = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a href="/#" className="nav-link">
+                <a href="/" className="nav-link">
                   <i className="nav-icon fas fa-shopping-bag"></i>
                   <p>
                     Quản lý Sản phẩm

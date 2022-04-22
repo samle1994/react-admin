@@ -4,6 +4,9 @@ import Nointernet from "./components/pages/Nointernet";
 import Nopermission from "./components/pages/Nopermission";
 import ProductList from "./components/pages/product/ProductList";
 import ProductListEdit from "./components/pages/product/ProductListEdit";
+import ProductCat from "./components/pages/product/ProductCat";
+import ProductCatEdit from "./components/pages/product/ProductCatEdit";
+
 const routes = [
   {
     path: "",
@@ -20,6 +23,14 @@ const routes = [
   {
     path: "productlist/:id",
     component: <ProductListEdit />,
+  },
+  {
+    path: "productcat",
+    component: <ProductCat />,
+  },
+  {
+    path: "productcat/:id",
+    component: <ProductCatEdit />,
   },
   {
     path: "no-internet",

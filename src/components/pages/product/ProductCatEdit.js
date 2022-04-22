@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Form } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import ProductListService from "./../../../services/ProductListService";
+import ProductCatService from "./../../../services/ProductCatService";
 import Input from "./../../Input";
+import ProductListService from "./../../../services/ProductListService";
 
-const ProductList = () => {
+const ProductCatEdit = () => {
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate("/productlist");
+    navigate("/productcat");
   };
   const params = useParams();
+  const [productlist, setproductlist] = useState([]);
 
   useEffect(() => {
     if (params.id > 0) {
-      ProductListService.get(params.id).then((res) => {
+      ProductCatService.get(params.id).then((res) => {
         formik.setValues(res.data);
       });
     }
+    ProductListService.list().then((res) => {
+      setproductlist(res.data);
+    });
   }, [params.id]);
 
   const formik = useFormik({
     initialValues: {
       id: 0,
+      id_list: 0,
       name: "",
     },
     validationSchema: Yup.object({
@@ -37,24 +44,28 @@ const ProductList = () => {
 
   const handleFormSubmit = (data) => {
     if (data.id === 0) {
-      ProductListService.add(data).then((res) => {
+      ProductCatService.add(data).then((res) => {
         if (res.errorCode === 0) {
           toast.success("Thêm mới thành công");
-          navigate("/productlist");
+          navigate("/productcat");
         } else {
           toast.warning(res.message);
         }
       });
     } else {
-      ProductListService.update(data.id, data, "", "").then((res) => {
+      ProductCatService.update(data.id, data, "", "").then((res) => {
         if (res.errorCode === 0) {
           toast.success("Cập nhật thành công");
-          navigate("/productlist");
+          navigate("/productcat");
         } else {
           toast.warning(res.message);
         }
       });
     }
+  };
+
+  const handleChangeSelect = (e) => {
+    formik.setFieldValue("id_list", Number(e.target.value).valueOf());
   };
 
   return (
@@ -66,7 +77,7 @@ const ProductList = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Quản lý sản phẩm cấp 1</h1>
+                <h1 className="m-0">Quản lý sản phẩm cấp 2</h1>
               </div>
               {/* /.col */}
               <div className="col-sm-6">
@@ -74,7 +85,7 @@ const ProductList = () => {
                   <li className="breadcrumb-item">
                     <a href="/#">Trang chủ</a>
                   </li>
-                  <li className="breadcrumb-item active">Danh mục cấp 1</li>
+                  <li className="breadcrumb-item active">Danh mục cấp 2</li>
                 </ol>
               </div>
               {/* /.col */}
@@ -95,6 +106,27 @@ const ProductList = () => {
 
             <form onSubmit={formik.handleSubmit}>
               <div className="card-body">
+                <div className="form-group">
+                  <label htmlFor="exampleInputEmail1">Danh mục cấp 1</label>
+                  <Form.Select
+                    name="id_list"
+                    id="id_list"
+                    className="form-control"
+                    aria-label="Chọn danh mục cấp 1"
+                    onChange={handleChangeSelect}
+                    value={formik.values.id_list}
+                  >
+                    <option key="1" value="0">
+                      Chọn danh mục 1
+                    </option>
+                    {productlist.map((list, index) => (
+                      <option key={list.id} value={list.id}>
+                        {list.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </div>
+
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Tiêu đề</label>
                   <Input
@@ -130,4 +162,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default ProductCatEdit;
