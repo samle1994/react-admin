@@ -19,6 +19,7 @@ const ProductCatEdit = () => {
   useEffect(() => {
     if (params.id > 0) {
       ProductCatService.get(params.id).then((res) => {
+        //console.log(res);
         formik.setValues(res.data);
       });
     }

@@ -6,6 +6,8 @@ import ProductList from "./components/pages/product/ProductList";
 import ProductListEdit from "./components/pages/product/ProductListEdit";
 import ProductCat from "./components/pages/product/ProductCat";
 import ProductCatEdit from "./components/pages/product/ProductCatEdit";
+import Product from "./components/pages/product/Product";
+import ProductEdit from "./components/pages/product/ProductEdit";
 
 const routes = [
   {
@@ -31,6 +33,14 @@ const routes = [
   {
     path: "productcat/:id",
     component: <ProductCatEdit />,
+  },
+  {
+    path: "product",
+    component: <Product />,
+  },
+  {
+    path: "product/:id",
+    component: <ProductEdit />,
   },
   {
     path: "no-internet",

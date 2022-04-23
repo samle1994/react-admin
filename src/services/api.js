@@ -7,6 +7,8 @@ const url = {
   login: "/login",
   productlist: "/productlist",
   productcat: "/productcat",
+  product: "/product",
+  getproductcat: "/getproductcat",
 };
 const instance = axios.create({
   baseURL: url.baseUrl,

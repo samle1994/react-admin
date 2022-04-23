@@ -57,7 +57,7 @@ const Menu = () => {
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/product">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
-                      <p>Danh mục cấp 2</p>
+                      <p>Sản phẩm</p>
                     </NavLink>
                   </li>
                 </ul>
