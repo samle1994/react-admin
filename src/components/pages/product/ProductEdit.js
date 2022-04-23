@@ -21,8 +21,6 @@ const ProductCatEdit = () => {
   const [productlist, setproductlist] = useState([]);
   const [productcat, setproductcat] = useState([]);
   const [imgDefault, setimgDefault] = useState("../../noimage.png");
-  const [file, setFiles] = useState([]);
-
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
@@ -273,7 +271,6 @@ const ProductCatEdit = () => {
                   </div>
                 </div>
               </div>
-
               <div className="card-footer">
                 <button type="submit" className="btn btn-primary">
                   Lưu lại
