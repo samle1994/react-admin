@@ -45,3 +45,12 @@ body,
   outline: none;
   transition: border 0.24s ease-in-out;
 }
+.item_gallery {
+  position: relative;
+}
+.delete {
+  cursor: pointer;
+}
+.delete i {
+  color: #000;
+}

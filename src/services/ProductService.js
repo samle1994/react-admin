@@ -9,9 +9,18 @@ const get = (id) => api.get(`${api.url.product}/${id}`).then((res) => res.data);
 
 const add = (data) => {
   const formData = new FormData();
+
   for (const key in data) {
-    formData.append(key, data[key]);
+    if (key === "files") {
+      for (let i = 0; i < data[key].length; i++) {
+        formData.append(key + "[]", data[key][i]);
+        //console.log(data[key][i]);
+      }
+    } else {
+      formData.append(key, data[key]);
+    }
   }
+
   return api.post(api.url.product, formData, {
     headers: {
       "Content-Type": "multipart/formdata",
@@ -19,13 +28,35 @@ const add = (data) => {
   });
 };
 
-const update = (id, data, value, type) =>
-  api
-    .put(`${api.url.product}/${id}?value=${value}&type=${type}`, data)
-    .then((res) => res.data);
+const update = (id, data, value, type) => {
+  const formData = new FormData();
+
+  for (const key in data) {
+    if (key === "files") {
+      for (let i = 0; i < data[key].length; i++) {
+        formData.append(key + "[]", data[key][i]);
+        //console.log(data[key][i]);
+      }
+    } else {
+      formData.append(key, data[key]);
+    }
+  }
+  return api.post(
+    `${api.url.product}/${id}?value=${value}&type=${type}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/formdata",
+      },
+    }
+  );
+};
 
 const remove = (id) =>
   api.delete(`${api.url.product}/${id}`).then((res) => res.data);
+
+const removeGallery = (id) =>
+  api.delete(`${api.url.removegallery}/${id}`).then((res) => res.data);
 
 const ProductService = {
   list,
@@ -34,5 +65,6 @@ const ProductService = {
   add,
   update,
   remove,
+  removeGallery,
 };
 export default ProductService;

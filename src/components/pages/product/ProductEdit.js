@@ -12,6 +12,7 @@ import GetProductCat from "./../../../services/GetProductCatService";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Dropzone, { useDropzone } from "react-dropzone";
+import { confirmAlert } from "react-confirm-alert";
 const ProductCatEdit = () => {
   const navigate = useNavigate();
   const handleBack = () => {
@@ -21,6 +22,8 @@ const ProductCatEdit = () => {
   const [productlist, setproductlist] = useState([]);
   const [productcat, setproductcat] = useState([]);
   const [imgDefault, setimgDefault] = useState("../../noimage.png");
+  const [photos, setphotos] = useState([]);
+  const [updatePhoto, setupdatePhoto] = useState("");
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
@@ -28,23 +31,11 @@ const ProductCatEdit = () => {
     },
   });
 
-  const files = acceptedFiles.map((file) => (
-    <div class="col-3">
-      <img class="img-fluid" src={URL.createObjectURL(file)} alt="" />
+  const files = acceptedFiles.map((file, idx) => (
+    <div key={idx} className="col-3 mb-3">
+      <img className="img-fluid" src={URL.createObjectURL(file)} alt="" />
     </div>
   ));
-
-  useEffect(() => {
-    if (params.id > 0) {
-      ProductService.get(params.id).then((res) => {
-        //console.log(res);
-        formik.setValues(res.data);
-      });
-    }
-    ProductListService.list().then((res) => {
-      setproductlist(res.data);
-    });
-  }, [params.id]);
 
   const formik = useFormik({
     initialValues: {
@@ -55,7 +46,7 @@ const ProductCatEdit = () => {
       photo: "",
       description: "",
       content: "",
-      price: 0,
+      price: "",
       files: [],
     },
     validationSchema: Yup.object({
@@ -63,28 +54,48 @@ const ProductCatEdit = () => {
       name: Yup.string().required("Bắt buộc nhập"),
     }),
     onSubmit: (values) => {
-      console.log(values);
-      //handleFormSubmit(values);
+      //console.log(values);
+      handleFormSubmit(values);
     },
   });
+  useEffect(() => {
+    if (params.id > 0) {
+      ProductService.get(params.id).then((res) => {
+        console.log(res.data);
+        formik.setValues(res.data);
+        if (res.data.id_list !== 0) {
+          GetProductCat.list(res.data.id_list).then((res) => {
+            setproductcat(res.data);
+          });
+        }
+        if (res.data.photo !== "") {
+          setimgDefault(res.data.photo);
+        }
+        setphotos(res.data.files);
+      });
+    }
+    ProductListService.list().then((res) => {
+      setproductlist(res.data);
+    });
+  }, [params.id]);
 
   const handleFormSubmit = (data) => {
     if (data.id === 0) {
       ProductService.add(data).then((res) => {
-        if (res.errorCode === 0) {
+        if (res.data.errorCode === 0) {
           toast.success("Thêm mới thành công");
           navigate("/product");
         } else {
-          toast.warning(res.message);
+          toast.warning(res.data.message);
         }
       });
     } else {
       ProductService.update(data.id, data, "", "").then((res) => {
-        if (res.errorCode === 0) {
+        if (res.data.errorCode === 0) {
           toast.success("Cập nhật thành công");
           navigate("/product");
         } else {
-          toast.warning(res.message);
+          toast.warning(res.data.message);
         }
       });
     }
@@ -104,6 +115,40 @@ const ProductCatEdit = () => {
       setimgDefault(URL.createObjectURL(e.target.files[0]));
       formik.setFieldValue("photo", e.target.files[0]);
     }
+  };
+  const handleDelete = (e, id) => {
+    //console.log(id);
+    if (id) {
+      ProductService.removeGallery(id).then((res) => {
+        if (res.errorCode === 0) {
+          toast.success("Xoá hình thành công thành công");
+          ProductService.get(params.id).then((res) => {
+            if (res.data.photo !== "") {
+              setimgDefault(res.data.photo);
+            }
+            setphotos(res.data.files);
+          });
+        } else {
+          toast.warning(res.message);
+        }
+      });
+    }
+  };
+  const confirmDelete = (e, id) => {
+    e.preventDefault();
+    confirmAlert({
+      title: "Xác nhận xoá",
+      message: "Bạn có chắc chắn muốn xoá",
+      buttons: [
+        {
+          label: "Đồng ý",
+          onClick: () => handleDelete(e, id),
+        },
+        {
+          label: "Quay lại",
+        },
+      ],
+    });
   };
 
   return (
@@ -138,7 +183,7 @@ const ProductCatEdit = () => {
           <div className="card card-primary">
             <div className="card-header">
               <h3 className="card-title">
-                {formik.id == 0 ? "Thêm" : "Sửa"} sản phẩm
+                {formik.values.id === 0 ? "Thêm" : "Sửa"} sản phẩm
               </h3>
             </div>
 
@@ -193,7 +238,7 @@ const ProductCatEdit = () => {
                       <Input
                         id="name"
                         type="text"
-                        placeholder="Nhập tên danh mục"
+                        placeholder="Nhập tên sản phẩm"
                         autoComplete="off"
                         frmField={formik.getFieldProps("name")}
                         err={formik.touched.name && formik.errors.name}
@@ -207,6 +252,7 @@ const ProductCatEdit = () => {
                         type="number"
                         placeholder="Nhập giá"
                         autoComplete="off"
+                        frmField={formik.getFieldProps("price")}
                       ></Input>
                     </div>
                     <div className="form-group">
@@ -216,6 +262,7 @@ const ProductCatEdit = () => {
                         type="text"
                         placeholder="Nhập mô tả"
                         rows="5"
+                        frmField={formik.getFieldProps("description")}
                       ></Input>
                     </div>
                     <div className="form-group">
@@ -223,7 +270,9 @@ const ProductCatEdit = () => {
                       <div>
                         <CKEditor
                           editor={ClassicEditor}
-                          data=""
+                          data={
+                            formik.values.content ? formik.values.content : ""
+                          }
                           onChange={(event, editor) => {
                             const data = editor.getData();
                             formik.setFieldValue("content", data);
@@ -265,7 +314,27 @@ const ProductCatEdit = () => {
                         <p>Chọn nhiều hình ảnh để tải lên</p>
                       </div>
                       <aside className="mt-3">
-                        <div class="row">{files}</div>
+                        <div className="row">{files}</div>
+                      </aside>
+                      <aside className="mt-3">
+                        <label>Album hình hiện tại</label>
+                        <div className="row">
+                          {photos.map((photo, idx) => (
+                            <div key={idx} className="col-3 mb-3 item_gallery">
+                              <div
+                                className="delete mb-1"
+                                onClick={(e) => confirmDelete(e, photo.id)}
+                              >
+                                <i className="fas fa-trash-alt"></i> Xoá
+                              </div>
+                              <img
+                                className="img-fluid"
+                                src={photo.photo}
+                                alt=""
+                              />
+                            </div>
+                          ))}
+                        </div>
                       </aside>
                     </section>
                   </div>

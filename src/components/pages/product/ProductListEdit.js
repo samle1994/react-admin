@@ -89,14 +89,14 @@ const ProductList = () => {
           <div className="card card-primary">
             <div className="card-header">
               <h3 className="card-title">
-                {formik.id == 0 ? "Thêm" : "Sửa"} danh mục
+                {formik.values.id == 0 ? "Thêm" : "Sửa"} danh mục
               </h3>
             </div>
 
             <form onSubmit={formik.handleSubmit}>
               <div className="card-body">
                 <div className="form-group">
-                  <label htmlFor="exampleInputEmail1">Tiêu đề</label>
+                  <label htmlFor="name">Tiêu đề</label>
                   <Input
                     id="name"
                     type="text"

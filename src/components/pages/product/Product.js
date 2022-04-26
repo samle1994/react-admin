@@ -101,6 +101,7 @@ const Product = () => {
       }
     });
   };
+
   return (
     <>
       {/* Content Wrapper. Contains page content */}
@@ -227,7 +228,9 @@ const Product = () => {
                                 : ""}
                             </p>
                           </td>
-                          <td></td>
+                          <td>
+                            <img width="50" src={product.photo} alt="" />
+                          </td>
                           <td className="align-middle ">
                             <p
                               className="mb-0"

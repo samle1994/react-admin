@@ -9,6 +9,7 @@ const url = {
   productcat: "/productcat",
   product: "/product",
   getproductcat: "/getproductcat",
+  removegallery: "/removegallery",
 };
 const instance = axios.create({
   baseURL: url.baseUrl,
