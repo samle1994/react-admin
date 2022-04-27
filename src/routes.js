@@ -8,6 +8,10 @@ import ProductCat from "./components/pages/product/ProductCat";
 import ProductCatEdit from "./components/pages/product/ProductCatEdit";
 import Product from "./components/pages/product/Product";
 import ProductEdit from "./components/pages/product/ProductEdit";
+import News from "./components/pages/news/News";
+import NewsEdit from "./components/pages/news/NewsEdit";
+import Setting from "./components/pages/setting/Setting";
+import Photo from "./components/pages/photo/Photo";
 
 const routes = [
   {
@@ -41,6 +45,22 @@ const routes = [
   {
     path: "product/:id",
     component: <ProductEdit />,
+  },
+  {
+    path: "news",
+    component: <News />,
+  },
+  {
+    path: "news/:id",
+    component: <NewsEdit />,
+  },
+  {
+    path: "setting/:id",
+    component: <Setting />,
+  },
+  {
+    path: "photo/:type",
+    component: <Photo />,
   },
   {
     path: "no-internet",

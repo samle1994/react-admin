@@ -192,7 +192,7 @@ const ProductCatEdit = () => {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label htmlFor="id_list">Danh sách sản phẩm</label>
+                      <label htmlFor="id_list">Danh mục cấp 1</label>
                       <Form.Select
                         name="id_list"
                         id="id_list"

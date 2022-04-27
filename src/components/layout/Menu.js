@@ -72,10 +72,45 @@ const Menu = () => {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="../mailbox/mailbox.html" className="nav-link">
+                    <NavLink className="nav-link" to="/news">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
-                      <p> Tin tức</p>
-                    </a>
+                      <p>Tin tức</p>
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li className="nav-item">
+                <a href="/#" className="nav-link">
+                  <i className="nav-icon fas fa-photo-video"></i>
+                  <p>
+                    Hình ảnh
+                    <i className="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photo/logo">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Logo</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photo/bannerseller">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Banner Seller</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photo/bannersaleoff">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Banner Sale off</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photo/bannerqc">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Banner QC</p>
+                    </NavLink>
                   </li>
                 </ul>
               </li>
@@ -89,10 +124,10 @@ const Menu = () => {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="../mailbox/mailbox.html" className="nav-link">
+                    <NavLink className="nav-link" to="/setting/1">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
-                      <p> Cấu hình website</p>
-                    </a>
+                      <p>Cấu hình website</p>
+                    </NavLink>
                   </li>
                 </ul>
               </li>
