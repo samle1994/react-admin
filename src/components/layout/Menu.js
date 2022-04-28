@@ -30,10 +30,10 @@ const Menu = () => {
               {/* Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library */}
               <li className="nav-item menu-open">
-                <a href="/" className="nav-link active">
+                <NavLink className="nav-link" to="/">
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>Bảng điều khiển</p>
-                </a>
+                </NavLink>
               </li>
               <li
                 className={`nav-item ${
