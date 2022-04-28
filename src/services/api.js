@@ -13,6 +13,7 @@ const url = {
   news: "/news",
   setting: "/setting",
   photo: "/photo",
+  photos: "/photos",
 };
 const instance = axios.create({
   baseURL: url.baseUrl,

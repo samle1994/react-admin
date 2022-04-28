@@ -29,7 +29,7 @@ const Menu = () => {
             >
               {/* Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library */}
-              <li className="nav-item menu-open">
+              <li className="nav-item">
                 <NavLink className="nav-link" to="/">
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>Bảng điều khiển</p>
@@ -96,7 +96,9 @@ const Menu = () => {
               </li>
               <li
                 className={`nav-item ${
-                  com === "photo" ? "menu-is-opening menu-open" : ""
+                  com === "photo" || com === "photos"
+                    ? "menu-is-opening menu-open"
+                    : ""
                 }`}
               >
                 <a href="/" className="nav-link">
@@ -129,6 +131,31 @@ const Menu = () => {
                     <NavLink className="nav-link" to="/photo/bannerqc">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
                       <p>Quản lý Banner QC</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photos/slider">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Slider</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photos/banner">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Banner</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photos/social_top">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Social top</p>
+                    </NavLink>
+                  </li>
+
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photos/social_bottom">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Social bottom</p>
                     </NavLink>
                   </li>
                 </ul>

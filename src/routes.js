@@ -12,6 +12,8 @@ import News from "./components/pages/news/News";
 import NewsEdit from "./components/pages/news/NewsEdit";
 import Setting from "./components/pages/setting/Setting";
 import Photo from "./components/pages/photo/Photo";
+import Photos from "./components/pages/photos/Photos";
+import PhotosEdit from "./components/pages/photos/PhotosEdit";
 
 const routes = [
   {
@@ -61,6 +63,14 @@ const routes = [
   {
     path: "photo/:type",
     component: <Photo />,
+  },
+  {
+    path: "photos/:type",
+    component: <Photos />,
+  },
+  {
+    path: "photos/:type/:id",
+    component: <PhotosEdit />,
   },
   {
     path: "no-internet",

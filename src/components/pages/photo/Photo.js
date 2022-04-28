@@ -11,8 +11,8 @@ const Photo = () => {
   const [imgDefault, setimgDefault] = useState("../../noimage.png");
 
   const params = useParams();
-  const loadata = () => {
-    PhotoService.get(params.type).then((res) => {
+  const loadata = (type) => {
+    PhotoService.get(type).then((res) => {
       if (res.errorCode === 0) {
         formik.setValues(res.data);
         setimgDefault(res.data.photo);
@@ -23,9 +23,7 @@ const Photo = () => {
     });
   };
   useEffect(() => {
-    if (params.type !== "") {
-      loadata();
-    }
+    loadata(params.type);
   }, [params.type]);
 
   const formik = useFormik({
@@ -46,7 +44,7 @@ const Photo = () => {
       console.log(res);
       if (res.data.errorCode === 0) {
         toast.success("Cập nhật thành công");
-        loadata();
+        loadata(params.type);
       } else {
         toast.warning(res.data.message);
       }
