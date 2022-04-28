@@ -1,6 +1,9 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 const logo = require("./../../AdminLTELogo.png");
+
 const Menu = () => {
+  const params = useLocation();
+  let com = params.pathname.split("/")[1];
   return (
     <>
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -32,7 +35,15 @@ const Menu = () => {
                   <p>Bảng điều khiển</p>
                 </a>
               </li>
-              <li className="nav-item">
+              <li
+                className={`nav-item ${
+                  com === "productlist" ||
+                  com === "productcat" ||
+                  com === "product"
+                    ? "menu-is-opening menu-open"
+                    : ""
+                } `}
+              >
                 <a href="/" className="nav-link">
                   <i className="nav-icon fas fa-shopping-bag"></i>
                   <p>
@@ -62,8 +73,12 @@ const Menu = () => {
                   </li>
                 </ul>
               </li>
-              <li className="nav-item">
-                <a href="/#" className="nav-link">
+              <li
+                className={`nav-item ${
+                  com === "news" ? "menu-is-opening menu-open" : ""
+                }`}
+              >
+                <a href="/" className="nav-link">
                   <i className="nav-icon fas fa-newspaper"></i>
                   <p>
                     Quản lý Tin tức
@@ -79,8 +94,12 @@ const Menu = () => {
                   </li>
                 </ul>
               </li>
-              <li className="nav-item">
-                <a href="/#" className="nav-link">
+              <li
+                className={`nav-item ${
+                  com === "photo" ? "menu-is-opening menu-open" : ""
+                }`}
+              >
+                <a href="/" className="nav-link">
                   <i className="nav-icon fas fa-photo-video"></i>
                   <p>
                     Hình ảnh
@@ -114,8 +133,12 @@ const Menu = () => {
                   </li>
                 </ul>
               </li>
-              <li className="nav-item">
-                <a href="/#" className="nav-link">
+              <li
+                className={`nav-item ${
+                  com === "setting" ? "menu-is-opening menu-open" : ""
+                }`}
+              >
+                <a href="/" className="nav-link">
                   <i className="nav-icon fas fa-cogs"></i>
                   <p>
                     Cấu hình chung

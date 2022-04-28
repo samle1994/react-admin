@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Form } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -18,12 +18,15 @@ const ProductCatEdit = () => {
   const handleBack = () => {
     navigate("/product");
   };
+
+  const location = useLocation();
+  let page_serch = location.search;
+
   const params = useParams();
   const [productlist, setproductlist] = useState([]);
   const [productcat, setproductcat] = useState([]);
   const [imgDefault, setimgDefault] = useState("../../noimage.png");
   const [photos, setphotos] = useState([]);
-  const [updatePhoto, setupdatePhoto] = useState("");
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
@@ -61,7 +64,7 @@ const ProductCatEdit = () => {
   useEffect(() => {
     if (params.id > 0) {
       ProductService.get(params.id).then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         formik.setValues(res.data);
         if (res.data.id_list !== 0) {
           GetProductCat.list(res.data.id_list).then((res) => {
@@ -93,7 +96,7 @@ const ProductCatEdit = () => {
       ProductService.update(data.id, data, "", "").then((res) => {
         if (res.data.errorCode === 0) {
           toast.success("Cập nhật thành công");
-          navigate("/product");
+          navigate("/product" + page_serch);
         } else {
           toast.warning(res.data.message);
         }

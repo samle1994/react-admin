@@ -33,24 +33,16 @@ const Home = () => {
               <div className="col-lg-12">
                 <div className="card">
                   <div className="card-header border-0">
-                    <h3 className="card-title">Products</h3>
-                    <div className="card-tools">
-                      <a href="/#" className="btn btn-tool btn-sm">
-                        <i className="fas fa-download" />
-                      </a>
-                      <a href="/#" className="btn btn-tool btn-sm">
-                        <i className="fas fa-bars" />
-                      </a>
-                    </div>
+                    <h3 className="card-title">Sản phẩm bán chạy</h3>
                   </div>
                   <div className="card-body table-responsive p-0">
                     <table className="table table-striped table-valign-middle">
                       <thead>
                         <tr>
-                          <th>Product</th>
-                          <th>Price</th>
-                          <th>Sales</th>
-                          <th>More</th>
+                          <th>Tên sản phẩm</th>
+                          <th>Giá</th>
+                          <th>Số lượng</th>
+                          <th>Chi tiết</th>
                         </tr>
                       </thead>
                       <tbody>

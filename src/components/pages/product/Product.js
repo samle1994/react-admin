@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
 import ProductService from "./../../../services/ProductService";
-import { Pagination } from "react-bootstrap";
+import { Pagination, Form } from "react-bootstrap";
 const Product = () => {
   const navigate = useNavigate();
-  const handleAdd = (e, id = 0) => {
-    e.preventDefault();
-    navigate("/product/" + id);
-  };
-
+  const location = useLocation();
+  let page_serch = location.search.split("?page=")[1];
+  let page_default = 0;
+  if (page_serch !== undefined) {
+    page_default = Number(page_serch);
+  }
   const [product, setproduct] = useState([]);
-
-  const [page, setpage] = useState(0);
+  const [page, setpage] = useState(page_default);
   const [pageLength, setpageLength] = useState(10);
   const [pagingItems, setpagingItems] = useState([]);
   const [search, setsearch] = useState("");
   const loadData = () => {
     ProductService.getPaging(page, pageLength, search).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.data.data == "" && res.data.PageInfo.total > 0) {
         setpage(res.data.PageInfo.total - 1);
       }
@@ -55,6 +55,11 @@ const Product = () => {
   useEffect(() => {
     loadData();
   }, [page, pageLength, search]);
+
+  const handleAdd = (e, id = 0, page = 0) => {
+    e.preventDefault();
+    navigate("/product/" + id + "?page=" + page);
+  };
 
   const handleDelete = (id) => {
     if (id) {
@@ -94,12 +99,16 @@ const Product = () => {
     let value = e.target.checked === false ? 0 : 1;
     let type = e.target.name;
     ProductService.update(id, {}, value, type).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.errorCode === 0) {
       } else {
         toast.warning(res.message);
       }
     });
+  };
+
+  const handleChangePage = (e) => {
+    setpageLength(Number(e.target.value));
   };
 
   return (
@@ -165,7 +174,31 @@ const Product = () => {
             <div className="col-12">
               <div className="card">
                 <div className="card-header">
-                  <h3 className="card-title">Danh sách sản phẩm</h3>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <h3 className="card-title">Danh sách sản phẩm</h3>
+                    <div className="col-auto d-flex align-items-center">
+                      <p className="mb-0 mr-1">Show</p>
+                      <Form.Select
+                        name="id_cat"
+                        id="id_cat"
+                        className="form-control"
+                        aria-label="Chọn danh mục cấp 1"
+                        value={pageLength}
+                        onChange={handleChangePage}
+                      >
+                        <option key="1" value="10">
+                          10
+                        </option>
+                        <option key="2" value="15">
+                          15
+                        </option>
+                        <option key="3" value="20">
+                          20
+                        </option>
+                      </Form.Select>
+                      <p className="mb-0 ml-1">entries</p>
+                    </div>
+                  </div>
                 </div>
                 {/* ./card-header */}
                 <div className="card-body">
@@ -208,20 +241,20 @@ const Product = () => {
                           <td className="align-middle text-center">
                             {idx + 1}
                           </td>
-                          <td>
+                          <td className="align-middle ">
                             <p
                               className="mb-0"
-                              onClick={(e) => handleAdd(e, product.id)}
+                              onClick={(e) => handleAdd(e, product.id, page)}
                             >
                               {product.product_list
                                 ? product.product_list.name
                                 : ""}
                             </p>
                           </td>
-                          <td>
+                          <td className="align-middle ">
                             <p
                               className="mb-0"
-                              onClick={(e) => handleAdd(e, product.id)}
+                              onClick={(e) => handleAdd(e, product.id, page)}
                             >
                               {product.product_cat
                                 ? product.product_cat.name
@@ -229,12 +262,17 @@ const Product = () => {
                             </p>
                           </td>
                           <td>
-                            <img width="50" src={product.photo} alt="" />
+                            <img
+                              width="50"
+                              src={product.photo}
+                              alt=""
+                              onClick={(e) => handleAdd(e, product.id, page)}
+                            />
                           </td>
                           <td className="align-middle ">
                             <p
                               className="mb-0"
-                              onClick={(e) => handleAdd(e, product.id)}
+                              onClick={(e) => handleAdd(e, product.id, page)}
                             >
                               {product.name}
                             </p>
@@ -282,7 +320,7 @@ const Product = () => {
                               <a
                                 className="text-primary mr-2"
                                 href="/#"
-                                onClick={(e) => handleAdd(e, product.id)}
+                                onClick={(e) => handleAdd(e, product.id, page)}
                                 title="Chỉnh sửa"
                               >
                                 <i className="fas fa-edit" />
