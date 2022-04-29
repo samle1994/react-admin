@@ -118,7 +118,7 @@ const NewsEdit = () => {
                       <Input
                         id="name"
                         type="text"
-                        placeholder="Nhập tên sản phẩm"
+                        placeholder="Nhập tên bài viết"
                         autoComplete="off"
                         frmField={formik.getFieldProps("name")}
                         err={formik.touched.name && formik.errors.name}

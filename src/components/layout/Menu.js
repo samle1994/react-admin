@@ -133,16 +133,17 @@ const Menu = () => {
                       <p>Quản lý Banner QC</p>
                     </NavLink>
                   </li>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="/photos/slider">
-                      <i className="fa fa-chevron-circle-right nav-icon"></i>
-                      <p>Quản lý Slider</p>
-                    </NavLink>
-                  </li>
+
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/photos/banner">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
                       <p>Quản lý Banner</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photos/slider">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Slider</p>
                     </NavLink>
                   </li>
                   <li className="nav-item">

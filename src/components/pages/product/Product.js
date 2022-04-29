@@ -208,16 +208,16 @@ const Product = () => {
                         <th width="5%" className="align-middle text-center">
                           STT
                         </th>
-                        <th width="15%" className="align-middle text-center">
+                        <th width="14%" className="align-middle text-center">
                           Danh mục cấp 1
                         </th>
-                        <th width="15%" className="align-middle text-center">
+                        <th width="14%" className="align-middle text-center">
                           Danh mục cấp 2
                         </th>
                         <th width="5%" className="align-middle text-center">
                           Photo
                         </th>
-                        <th width="25%" className="align-middle text-center">
+                        <th width="20%" className="align-middle text-center">
                           Tiêu đề
                         </th>
                         <th width="8%" className="align-middle text-center">
@@ -225,6 +225,12 @@ const Product = () => {
                         </th>
                         <th width="8%" className="align-middle text-center">
                           Nổi bật
+                        </th>
+                        <th width="8%" className="align-middle text-center">
+                          Sale
+                        </th>
+                        <th width="8%" className="align-middle text-center">
+                          News
                         </th>
                         <th width="10%" className="align-middle text-center">
                           Thao tác
@@ -311,6 +317,46 @@ const Product = () => {
                               />
                               <label
                                 htmlFor={`show-checkbox-hot-${product.id}`}
+                                className="custom-control-label"
+                              />
+                            </div>
+                          </td>
+                          <td className="align-middle text-center">
+                            <div className="custom-control custom-checkbox my-checkbox">
+                              <input
+                                type="checkbox"
+                                className="custom-control-input show-checkbox"
+                                id={`show-checkbox-news-${product.id}`}
+                                defaultChecked={
+                                  product.news == 1 ? true : false
+                                }
+                                onClick={(e) =>
+                                  handleChangeStatus(e, product.id)
+                                }
+                                name="news"
+                              />
+                              <label
+                                htmlFor={`show-checkbox-news-${product.id}`}
+                                className="custom-control-label"
+                              />
+                            </div>
+                          </td>
+                          <td className="align-middle text-center">
+                            <div className="custom-control custom-checkbox my-checkbox">
+                              <input
+                                type="checkbox"
+                                className="custom-control-input show-checkbox"
+                                id={`show-checkbox-sale-${product.id}`}
+                                defaultChecked={
+                                  product.sale == 1 ? true : false
+                                }
+                                onClick={(e) =>
+                                  handleChangeStatus(e, product.id)
+                                }
+                                name="sale"
+                              />
+                              <label
+                                htmlFor={`show-checkbox-sale-${product.id}`}
                                 className="custom-control-label"
                               />
                             </div>
