@@ -8,7 +8,7 @@ const Menu = () => {
     <>
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
         {/* Brand Logo */}
-        <a href="/" className="brand-link">
+        <a href="/#" className="brand-link">
           <img
             src={logo}
             alt="AdminLTE Logo"
@@ -44,7 +44,7 @@ const Menu = () => {
                     : ""
                 } `}
               >
-                <a href="/" className="nav-link">
+                <a href="/#" className="nav-link">
                   <i className="nav-icon fas fa-shopping-bag"></i>
                   <p>
                     Quản lý Sản phẩm
@@ -78,7 +78,7 @@ const Menu = () => {
                   com === "news" ? "menu-is-opening menu-open" : ""
                 }`}
               >
-                <a href="/" className="nav-link">
+                <a href="/#" className="nav-link">
                   <i className="nav-icon fas fa-newspaper"></i>
                   <p>
                     Quản lý Tin tức
@@ -101,7 +101,7 @@ const Menu = () => {
                     : ""
                 }`}
               >
-                <a href="/" className="nav-link">
+                <a href="/#" className="nav-link">
                   <i className="nav-icon fas fa-photo-video"></i>
                   <p>
                     Hình ảnh
@@ -166,7 +166,7 @@ const Menu = () => {
                   com === "setting" ? "menu-is-opening menu-open" : ""
                 }`}
               >
-                <a href="/" className="nav-link">
+                <a href="/#" className="nav-link">
                   <i className="nav-icon fas fa-cogs"></i>
                   <p>
                     Cấu hình chung

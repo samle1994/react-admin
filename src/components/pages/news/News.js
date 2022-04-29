@@ -180,13 +180,15 @@ const News = () => {
                         <th width="10%" className="align-middle text-center">
                           Photo
                         </th>
-                        <th width="50%" className="align-middle text-center">
+                        <th width="40%" className="align-middle text-center">
                           Tiêu đề
                         </th>
                         <th width="15%" className="align-middle text-center">
                           Hiển thị
                         </th>
-
+                        <th width="15%" className="align-middle text-center">
+                          Nổi bật
+                        </th>
                         <th width="15%" className="align-middle text-center">
                           Thao tác
                         </th>
@@ -233,6 +235,23 @@ const News = () => {
                               />
                               <label
                                 htmlFor={`show-checkbox-${news.id}`}
+                                className="custom-control-label"
+                              />
+                            </div>
+                          </td>
+
+                          <td className="align-middle text-center">
+                            <div className="custom-control custom-checkbox my-checkbox">
+                              <input
+                                type="checkbox"
+                                className="custom-control-input show-checkbox"
+                                id={`show-checkbox-hot-${news.id}`}
+                                defaultChecked={news.hot == 1 ? true : false}
+                                onClick={(e) => handleChangeStatus(e, news.id)}
+                                name="hot"
+                              />
+                              <label
+                                htmlFor={`show-checkbox-hot-${news.id}`}
                                 className="custom-control-label"
                               />
                             </div>

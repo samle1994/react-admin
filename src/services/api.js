@@ -2,8 +2,8 @@ import axios from "axios";
 import store from "./../store/store";
 
 const url = {
-  //baseUrl: "https://lesam.store/api",
-  baseUrl: "http://127.0.0.1:8000/api",
+  baseUrl: "https://api.lesam.store/api",
+  //baseUrl: "http://127.0.0.1:8000/api",
   login: "/login",
   productlist: "/productlist",
   productcat: "/productcat",
