@@ -169,14 +169,13 @@ const News = () => {
                   <h3 className="card-title">Danh sách tin tức</h3>
                 </div>
                 {/* ./card-header */}
-                <div className="card-body">
+                <div className="card-body table-responsive">
                   <table className="table table-bordered table-hover">
                     <thead>
                       <tr>
                         <th width="5%" className="align-middle text-center">
                           STT
                         </th>
-
                         <th width="10%" className="align-middle text-center">
                           Photo
                         </th>

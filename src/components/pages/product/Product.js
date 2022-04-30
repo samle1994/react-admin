@@ -201,7 +201,7 @@ const Product = () => {
                   </div>
                 </div>
                 {/* ./card-header */}
-                <div className="card-body">
+                <div className="box-body table-responsive ">
                   <table className="table table-bordered table-hover">
                     <thead>
                       <tr>
