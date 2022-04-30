@@ -1,7 +1,14 @@
+import React, { useEffect } from "react";
+
 import { Link, NavLink, useLocation } from "react-router-dom";
 const logo = require("./../../AdminLTELogo.png");
 
 const Menu = () => {
+  useEffect(() => {
+    const trees = window.$('[data-widget="treeview"]');
+    trees.Treeview("init");
+  }, []);
+
   const params = useLocation();
   let com = params.pathname.split("/")[1];
   return (

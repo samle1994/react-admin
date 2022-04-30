@@ -47,7 +47,7 @@ const Login = () => {
         } else {
           localStorage.removeItem("Datainfo");
         }
-        window.location.href = "/";
+        navigate("/");
       } else {
         setmessage(result.data.message);
       }
