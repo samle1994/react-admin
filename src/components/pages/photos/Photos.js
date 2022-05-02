@@ -24,7 +24,7 @@ const Photos = () => {
 
   const loadData = (type) => {
     PhotosService.getPaging(page, pageLength, search, type).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.data.data == "" && res.data.PageInfo.total > 0) {
         setpage(res.data.PageInfo.total - 1);
       }
@@ -66,7 +66,7 @@ const Photos = () => {
       PhotosService.remove(id).then((res) => {
         if (res.errorCode === 0) {
           toast.success("Xoá dữ liệu thành công");
-          loadData();
+          loadData(params.type);
         } else {
           toast.warning(res.message);
         }

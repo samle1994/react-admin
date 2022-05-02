@@ -19,6 +19,7 @@ const PhotosEdit = () => {
     initialValues: {
       id: 0,
       name: "",
+      link: "",
       photo: "",
     },
     validationSchema: Yup.object({
@@ -118,6 +119,19 @@ const PhotosEdit = () => {
                     frmField={formik.getFieldProps("name")}
                     err={formik.touched.name && formik.errors.name}
                     errMessage={formik.errors.name}
+                  ></Input>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="name">Link</label>
+                  <Input
+                    id="link"
+                    type="text"
+                    placeholder="Nhập link"
+                    autoComplete="off"
+                    frmField={formik.getFieldProps("link")}
+                    err={formik.touched.link && formik.errors.link}
+                    errMessage={formik.errors.link}
                   ></Input>
                 </div>
 
