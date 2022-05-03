@@ -227,10 +227,10 @@ const Product = () => {
                           Nổi bật
                         </th>
                         <th width="8%" className="align-middle text-center">
-                          Sale
+                          News
                         </th>
                         <th width="8%" className="align-middle text-center">
-                          News
+                          Sale
                         </th>
                         <th width="10%" className="align-middle text-center">
                           Thao tác
@@ -386,7 +386,7 @@ const Product = () => {
                       ))}
                     </tbody>
                   </table>
-                  <Pagination className="mt-3 mb-0 justify-content-end">
+                  <Pagination className="mt-3 mb-3 mr-3 justify-content-end">
                     {pagingItems}
                   </Pagination>
                 </div>
