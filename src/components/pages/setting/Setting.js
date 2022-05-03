@@ -12,7 +12,6 @@ const Setting = () => {
   const params = useParams();
   const loadata = () => {
     SettingService.get(1).then((res) => {
-      console.log(res);
       formik.setValues(res.data);
     });
   };
@@ -29,6 +28,7 @@ const Setting = () => {
       hotline: "",
       email: "",
       website: "",
+      address: "",
       copyright: "",
       title: "",
       keywords: "",
@@ -131,8 +131,6 @@ const Setting = () => {
                         placeholder="Nhập Email"
                         autoComplete="off"
                         frmField={formik.getFieldProps("email")}
-                        err={formik.touched.email && formik.errors.email}
-                        errMessage={formik.errors.email}
                       ></Input>
                     </div>
                   </div>
@@ -145,8 +143,6 @@ const Setting = () => {
                         placeholder="Nhập Website"
                         autoComplete="off"
                         frmField={formik.getFieldProps("website")}
-                        err={formik.touched.website && formik.errors.website}
-                        errMessage={formik.errors.website}
                       ></Input>
                     </div>
                   </div>
@@ -159,10 +155,6 @@ const Setting = () => {
                         placeholder="Nhập copyright"
                         autoComplete="off"
                         frmField={formik.getFieldProps("copyright")}
-                        err={
-                          formik.touched.copyright && formik.errors.copyright
-                        }
-                        errMessage={formik.errors.copyright}
                       ></Input>
                     </div>
                   </div>
@@ -175,8 +167,18 @@ const Setting = () => {
                         placeholder="Nhập title"
                         autoComplete="off"
                         frmField={formik.getFieldProps("title")}
-                        err={formik.touched.title && formik.errors.title}
-                        errMessage={formik.errors.title}
+                      ></Input>
+                    </div>
+                  </div>
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="name">Address</label>
+                      <Input
+                        id="address"
+                        type="text"
+                        placeholder="Nhập address"
+                        autoComplete="off"
+                        frmField={formik.getFieldProps("address")}
                       ></Input>
                     </div>
                   </div>
@@ -190,8 +192,6 @@ const Setting = () => {
                         autoComplete="off"
                         rows="4"
                         frmField={formik.getFieldProps("keywords")}
-                        err={formik.touched.keywords && formik.errors.keywords}
-                        errMessage={formik.errors.keywords}
                       ></Input>
                     </div>
                   </div>

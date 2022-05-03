@@ -159,11 +159,34 @@ const Menu = () => {
                       <p>Quản lý Social top</p>
                     </NavLink>
                   </li>
-
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/photos/social_bottom">
                       <i className="fa fa-chevron-circle-right nav-icon"></i>
                       <p>Quản lý Social bottom</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photo/bannerproduct">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Banner Sp</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photo/bannerproductnews">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Banner Sp mới</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photo/bannerproductsale">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Banner Sp sale</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/photo/bannerproductleft">
+                      <i className="fa fa-chevron-circle-right nav-icon"></i>
+                      <p>Quản lý Banner Left</p>
                     </NavLink>
                   </li>
                 </ul>
