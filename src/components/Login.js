@@ -10,6 +10,9 @@ const Login = () => {
   const [message, setmessage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const usernameRef = React.useRef();
+  const passwordRef = React.useRef();
+  const rememberRef = React.useRef();
   const handleLoginAction = (token, userinfo) => {
     dispatch({
       type: ActionTypes.LOGIN_USER,
@@ -19,9 +22,9 @@ const Login = () => {
   };
   const formsubmit = (e) => {
     e.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const remember = document.getElementById("remember").checked;
+    const username = usernameRef.current.value;
+    const password = passwordRef.current.value;
+    const remember = rememberRef.current.checked;
     //console.log(username, password);
     //console.log(remember);
     userService.login(username, password).then((result) => {
@@ -90,6 +93,7 @@ const Login = () => {
                         ? Datainfo_r.username
                         : ""
                     }
+                    ref={usernameRef}
                   />
                   <div className="input-group-append">
                     <div className="input-group-text">
@@ -106,6 +110,7 @@ const Login = () => {
                         ? Datainfo_r.password
                         : ""
                     }
+                    ref={passwordRef}
                     className="form-control"
                     placeholder="Mật khẩu"
                   />
@@ -126,6 +131,7 @@ const Login = () => {
                         }
                         type="checkbox"
                         id="remember"
+                        ref={rememberRef}
                       />
                       <label htmlFor="remember">Nhớ mật khẩu</label>
                     </div>
