@@ -25,8 +25,6 @@ const Login = () => {
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
     const remember = rememberRef.current.checked;
-    //console.log(username, password);
-    //console.log(remember);
     userService.login(username, password).then((result) => {
       //console.log(result);
       if (result.data.errorCode === 0) {
