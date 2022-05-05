@@ -33,7 +33,12 @@ const Header = () => {
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
           <li className="nav-item d-sm-inline-block">
-            <a href="../" target="_blank" className="nav-link">
+            <a
+              href="/#"
+              onClick={() => window.open("https://lesam.store/", "_blank")}
+              target="_blank"
+              className="nav-link"
+            >
               <i className="fas fa-reply"></i>
             </a>
           </li>
